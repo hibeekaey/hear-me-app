@@ -1,12 +1,43 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>
+          <ion-textarea placeholder="Enter any notes here..." spellcheck autofocus clearOnEdit></ion-textarea>
+        </div>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row align-items-center>
+      <ion-col>
+        <div text-right>
+          <ion-fab-button color="secondary" mini>
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div text-center>
+          <ion-fab-button color="primary">
+            <ion-icon name="mic"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div text-left>
+          <ion-fab-button color="secondary" mini>
+            <ion-icon name="megaphone"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
