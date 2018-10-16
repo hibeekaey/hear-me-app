@@ -23,6 +23,10 @@ export class HomePage {
     private _speechRecognitionService: SpeechRecognitionService
   ) { }
 
+  clearText() {
+    this.text = '';
+  }
+
   textToSpeech() {
     const payload = { text: this.text, language: this.code };
 

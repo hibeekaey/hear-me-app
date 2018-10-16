@@ -32,21 +32,21 @@
     <ion-row align-items-center>
       <ion-col>
         <div text-right>
-          <ion-fab-button color="danger" mini>
+          <ion-fab-button color="danger" mini (click)="clearText()">
             <ion-icon name="close"></ion-icon>
           </ion-fab-button>
         </div>
       </ion-col>
       <ion-col>
         <div text-center>
-          <ion-fab-button color="primary">
+          <ion-fab-button color="primary" (click)="speechRecognition();">
             <ion-icon name="mic"></ion-icon>
           </ion-fab-button>
         </div>
       </ion-col>
       <ion-col>
         <div text-left>
-          <ion-fab-button color="secondary" mini (click)="textToSpeech('I am a boy and my name is Dairo Ibukun Olatayo', 'en-GB')">
+          <ion-fab-button color="secondary" mini (click)="textToSpeech()">
             <ion-icon name="megaphone"></ion-icon>
           </ion-fab-button>
         </div>
