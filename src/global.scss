@@ -10,3 +10,13 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+.ios {
+  ion-toolbar.ion-color-primary {
+    --ion-color-base: var(--ion-color-white, #ffffff) !important;
+    --ion-color-base-rgb: var(--ion-color-white-rgb, 255,255,255) !important;
+    --ion-color-contrast: var(--ion-color-white-contrast, #000) !important;
+    --ion-color-contrast-rgb: var(--ion-color-white-contrast-rgb, 0,0,0) !important;
+    --ion-color-shade: var(--ion-color-white-shade, #ffffff) !important;
+    --ion-color-tint: var(--ion-color-white-tint, #ffffff) !important;
+  }
+}

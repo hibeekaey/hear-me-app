@@ -1,12 +1,56 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+<ion-content padding-vertical fullscreen>
+  <ion-list lines="none" no-margin>
+    <ion-list-header>
+      <ion-label>Text-to-Speech / Speech Recognition</ion-label>
+    </ion-list-header>
+
+    <ion-item lines="full">
+      <ion-label>Select language</ion-label>
+      <ion-select placeholder="Language" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="code">
+        <ion-select-option value="en-US">English (US)</ion-select-option>
+        <ion-select-option value="en-GB">English (UK)</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Enter and show text</ion-label>
+      <ion-textarea rows="4" autocapitalize="sentences" spellcheck autofocus clearOnEdit [(ngModel)]="text"></ion-textarea>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col>
+        <div text-right>
+          <ion-fab-button color="danger" mini (click)="clearText()">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div text-center>
+          <ion-fab-button color="primary" (click)="speechRecognition();">
+            <ion-icon name="mic"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div text-left>
+          <ion-fab-button color="secondary" mini (click)="textToSpeech()">
+            <ion-icon name="megaphone"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

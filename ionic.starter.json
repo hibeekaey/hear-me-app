@@ -1,5 +1,5 @@
 {
-  "name": "Blank Starter",
+  "name": "HearMe",
   "baseref": "master",
   "tarignore": [
     "node_modules",
