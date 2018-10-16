@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TextToSpeechService } from '../text-to-speech.service';
+import { SpeechRecognitionService } from '../speech-recognition.service';
 
 import { HomePage } from './home.page';
 
@@ -18,6 +20,10 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  providers: [
+    TextToSpeechService,
+    SpeechRecognitionService
+  ]
 })
 export class HomePageModule {}

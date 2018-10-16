@@ -6,20 +6,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div>
-          <ion-textarea placeholder="Enter any notes here..." spellcheck autofocus clearOnEdit></ion-textarea>
-        </div>
-      </ion-col>
-    </ion-row>
+<ion-content padding-vertical fullscreen>
+  <ion-list lines="none" no-margin>
+    <ion-list-header>
+      <ion-label>Text-to-Speech / Speech Recognition</ion-label>
+    </ion-list-header>
+
+    <ion-item lines="full">
+      <ion-label>Select language</ion-label>
+      <ion-select placeholder="Language" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="code">
+        <ion-select-option value="en-US">English (US)</ion-select-option>
+        <ion-select-option value="en-GB">English (UK)</ion-select-option>
+      </ion-select>
+    </ion-item>
     
+    <ion-item>
+      <ion-label position="floating">Enter and show text</ion-label>
+      <ion-textarea rows="4" autocapitalize="sentences" spellcheck autofocus clearOnEdit [(ngModel)]="text"></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
     <ion-row align-items-center>
       <ion-col>
         <div text-right>
-          <ion-fab-button color="secondary" mini>
+          <ion-fab-button color="danger" mini>
             <ion-icon name="close"></ion-icon>
           </ion-fab-button>
         </div>
@@ -33,11 +46,11 @@
       </ion-col>
       <ion-col>
         <div text-left>
-          <ion-fab-button color="secondary" mini>
+          <ion-fab-button color="secondary" mini (click)="textToSpeech('I am a boy and my name is Dairo Ibukun Olatayo', 'en-GB')">
             <ion-icon name="megaphone"></ion-icon>
           </ion-fab-button>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
+</ion-footer>
