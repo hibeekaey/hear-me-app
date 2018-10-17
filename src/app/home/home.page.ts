@@ -32,6 +32,7 @@ export class HomePage {
 
     this._textToSpeechService.process(payload).subscribe(
       data => {
+        // play audio
         return true;
       },
       error => {
@@ -42,6 +43,7 @@ export class HomePage {
   }
 
   speechRecognition(audio) {
+    // record audio for 10 secs
     const payload = { audio: audio };
 
     this._speechRecognitionService.process(payload).subscribe(

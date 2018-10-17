@@ -13,6 +13,6 @@ export class TextToSpeechService {
   constructor(private http: HttpClient) { }
 
   process(data) {
-    return this.http.post('http://localhost:8080/text', data, httpOptions);
+    return this.http.post('https://hear-me-api.herokuapp.com/text', data, httpOptions);
   }
 }

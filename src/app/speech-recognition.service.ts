@@ -13,6 +13,6 @@ export class SpeechRecognitionService {
   constructor(private http: HttpClient) { }
 
   process(data) {
-    return this.http.post('http://localhost:8080/speech', data, httpOptions);
+    return this.http.post('https://hear-me-api.herokuapp.com/speech', data, httpOptions);
   }
 }
