@@ -15,14 +15,14 @@
     <ion-item lines="full">
       <ion-label>Select language</ion-label>
       <ion-select placeholder="Language" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="code">
-        <ion-select-option value="en-US">English (US)</ion-select-option>
+        <ion-select-option value="en-US" selected>English (US)</ion-select-option>
         <ion-select-option value="en-GB">English (UK)</ion-select-option>
       </ion-select>
     </ion-item>
     
     <ion-item>
       <ion-label position="floating">Enter and show text</ion-label>
-      <ion-textarea rows="4" autocapitalize="sentences" spellcheck autofocus clearOnEdit [(ngModel)]="text"></ion-textarea>
+      <ion-textarea rows="4" autocapitalize="sentences" spellcheck autofocus [(ngModel)]="text"></ion-textarea>
     </ion-item>
   </ion-list>
 </ion-content>
