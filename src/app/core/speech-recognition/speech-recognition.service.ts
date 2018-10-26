@@ -15,7 +15,6 @@ export interface SpeechRecognition {
   providedIn: 'root'
 })
 export class SpeechRecognitionService {
-
   constructor(private http: HttpClient) { }
 
   process(data) {
