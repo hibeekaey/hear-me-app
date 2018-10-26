@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { File } from '@ionic-native/file/ngx';
 import { Media } from '@ionic-native/media/ngx';
 
-import { TextToSpeechService } from './text-to-speech.service';
-import { SpeechRecognitionService } from './speech-recognition.service';
+import { TextToSpeechService } from './text-to-speech/text-to-speech.service';
+import { SpeechRecognitionService } from './speech-recognition/speech-recognition.service';
 
 @NgModule({
   imports: [

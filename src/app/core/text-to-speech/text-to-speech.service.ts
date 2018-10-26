@@ -15,7 +15,6 @@ export interface TextToSpeech {
   providedIn: 'root'
 })
 export class TextToSpeechService {
-
   constructor(private http: HttpClient) { }
 
   process(data) {
