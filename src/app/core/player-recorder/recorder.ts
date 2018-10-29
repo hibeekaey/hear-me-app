@@ -1,28 +1,18 @@
-import { LoadingController } from '@ionic/angular';
-
 import { File } from '@ionic-native/file/ngx';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 
 import { SpeechRecognition, SpeechRecognitionService } from '../speech-recognition/speech-recognition.service';
-import { throwError } from 'rxjs';
+import { throwError, Subject } from 'rxjs';
+import { retryWhen, delayWhen, takeUntil } from 'rxjs/operators';
 
 export class Recorder {
   audioFile = 'audio.amr';
 
   constructor(
-    public loadingController: LoadingController,
     public file: File,
     public media: Media,
     public _speechRecognitionService: SpeechRecognitionService
   ) {}
-
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Hello',
-      duration: 2000
-    });
-    return await loading.present();
-  }
 
   record(): void {
     // create audio output file
@@ -32,20 +22,18 @@ export class Recorder {
     });
   }
 
-  speechRecognition(code) {
-    this.file.readAsDataURL(this.file.externalCacheDirectory, this.audioFile).then(audioBytes => {
-      const payload = { voice: audioBytes.split(',')[1], language: code };
-      return new Promise((resolve, reject) => {
-        this._speechRecognitionService.process(payload).subscribe(
-          (data: SpeechRecognition) => {
-            resolve(data.data);
-          },
-          error => {
-            console.log('Speech recognition operation failed.');
-            reject(throwError(error));
-          }
-        );
-      });
+  async speechRecognition(code): Promise<object> {
+    const audioBytes = await this.file.readAsDataURL(this.file.externalCacheDirectory, this.audioFile);
+    const payload = { voice: audioBytes.split(',')[1], language: code };
+    return new Promise((resolve, reject) => {
+      this._speechRecognitionService.process(payload).subscribe(
+        (data: SpeechRecognition) => {
+          resolve(data);
+        }, error => {
+          console.log('Speech recognition operation failed.');
+          reject(throwError(error));
+        }
+      );
     });
   }
 }
