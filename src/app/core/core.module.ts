@@ -8,6 +8,7 @@ import { Media } from '@ionic-native/media/ngx';
 
 import { TextToSpeechService } from './text-to-speech/text-to-speech.service';
 import { SpeechRecognitionService } from './speech-recognition/speech-recognition.service';
+import { ErrorHandlerService } from './error-handler/error-handler.service';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { SpeechRecognitionService } from './speech-recognition/speech-recognitio
     File,
     Media,
     TextToSpeechService,
-    SpeechRecognitionService
+    SpeechRecognitionService,
+    ErrorHandlerService
   ],
   exports: [
     CommonModule,

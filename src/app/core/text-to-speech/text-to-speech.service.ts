@@ -17,7 +17,7 @@ export interface TextToSpeech {
 export class TextToSpeechService {
   constructor(private http: HttpClient) { }
 
-  process(data) {
+  process(data: object) {
     return this.http.post('https://hear-me-api.herokuapp.com/text', data, httpOptions);
   }
 }

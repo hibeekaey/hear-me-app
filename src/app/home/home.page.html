@@ -40,7 +40,8 @@
       <ion-col>
         <div text-center>
           <ion-fab-button color="primary" (click)="handleRecord();">
-            <ion-icon name="mic"></ion-icon>
+            <ion-icon name="mic" *ngIf="!countdown"></ion-icon>
+            <strong *ngIf="countdown">{{countdown}}</strong>
           </ion-fab-button>
         </div>
       </ion-col>

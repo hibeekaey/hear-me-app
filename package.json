@@ -1,7 +1,7 @@
 {
   "name": "hear-me",
   "version": "1.0.1",
-  "author": "Cuesoft (ltd)",
+  "author": "Cuesoft Ltd.",
   "homepage": "http://cuesoft.io/",
   "scripts": {
     "ng": "ng",
@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^7.0.1",
     "@angular/common": "^6.1.10",
     "@angular/core": "^6.1.10",
     "@angular/forms": "^6.1.10",
@@ -39,6 +40,7 @@
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-plugin-x-toast": "2.7.0",
     "core-js": "^2.5.3",
+    "hammerjs": "^2.0.8",
     "rxjs": "6.2.2",
     "zone.js": "^0.8.26"
   },

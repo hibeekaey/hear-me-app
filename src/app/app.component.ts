@@ -17,11 +17,10 @@ export class AppComponent {
     this.initializeApp();
   }
 
-  initializeApp() {
+  initializeApp(): void {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
       this.statusBar.backgroundColorByHexString('#3f79e0');
-
       this.splashScreen.hide();
     });
   }

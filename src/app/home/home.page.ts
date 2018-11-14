@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { Toast } from '@ionic-native/toast/ngx';
 
 import { File } from '@ionic-native/file/ngx';
 import { Media } from '@ionic-native/media/ngx';
 
 import { TextToSpeech, TextToSpeechService } from '../core/text-to-speech/text-to-speech.service';
 import { SpeechRecognition, SpeechRecognitionService } from '../core/speech-recognition/speech-recognition.service';
+
+import { ErrorHandlerService } from '../core/error-handler/error-handler.service';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { PlayerRecorder } from '../core/player-recorder/player-recorder';
 
@@ -18,6 +21,7 @@ import { PlayerRecorder } from '../core/player-recorder/player-recorder';
 export class HomePage extends PlayerRecorder implements OnInit, OnDestroy {
   text: string;
   code: string;
+  countdown = 0;
 
   customPopoverOptions: any = {
     header: 'Language',
@@ -27,7 +31,7 @@ export class HomePage extends PlayerRecorder implements OnInit, OnDestroy {
 
   constructor(
     public loadingController: LoadingController,
-    private toast: Toast,
+    private _errorHandler: ErrorHandlerService,
     public file: File,
     public media: Media,
     public _textToSpeechService: TextToSpeechService,
@@ -52,6 +56,24 @@ export class HomePage extends PlayerRecorder implements OnInit, OnDestroy {
     this.text = '';
   }
 
+  startCountdown(countdown: number): Promise<number> {
+    return new Promise(resolve => {
+      this.countdown = countdown;
+      const duration = interval(1000);
+      const unsubscriber$: Subject<void> = new Subject<void>();
+      duration.pipe(takeUntil(unsubscriber$)).subscribe(
+        val => {
+          this.countdown--;
+          if (!this.countdown) {
+            this.stop();
+            unsubscriber$.next();
+            resolve(val);
+          }
+        }
+      );
+    });
+  }
+
   async processText() {
     try {
       this.presentLoading();
@@ -60,19 +82,23 @@ export class HomePage extends PlayerRecorder implements OnInit, OnDestroy {
       this.dismissLoading();
     } catch (err) {
       this.dismissLoading();
-      err.subscribe({
-        error: val => {
-          this.toast.showShortBottom(val.error.message).subscribe(
-            toast => {
-              console.log(toast);
-            }
-          );
-        }
-      });
+      this._errorHandler.showToast(err);
     }
   }
 
-  handleRecord(): void { }
+  async handleRecord() {
+    try {
+      this.presentLoading();
+      await this.record();
+      await this.startCountdown(5);
+      const text: SpeechRecognition = await this.speechRecognition(this.code);
+      this.text = text.data;
+      this.dismissLoading();
+    } catch (err) {
+      this.dismissLoading();
+      this._errorHandler.showToast(err);
+    }
+  }
 
   ngOnInit(): void { }
 

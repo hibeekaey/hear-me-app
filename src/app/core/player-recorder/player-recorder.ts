@@ -1,5 +1,5 @@
 import { File } from '@ionic-native/file/ngx';
-import { Media } from '@ionic-native/media/ngx';
+import { Media, MediaObject } from '@ionic-native/media/ngx';
 
 import { TextToSpeech, TextToSpeechService } from '../text-to-speech/text-to-speech.service';
 import { SpeechRecognition, SpeechRecognitionService } from '../speech-recognition/speech-recognition.service';
@@ -8,7 +8,8 @@ import { Player } from './player';
 import { Recorder } from './recorder';
 
 export class PlayerRecorder implements Player, Recorder {
-  audioFile: string;
+  audio: MediaObject;
+  audioFile = 'audio.amr';
 
   constructor(
     public file: File,
@@ -17,11 +18,12 @@ export class PlayerRecorder implements Player, Recorder {
     public _speechRecognitionService: SpeechRecognitionService
   ) {}
 
-  play: (speech) => Promise<number>;
-  record: () => void;
+  play: (speech: string) => Promise<number>;
+  record: () => Promise<number>;
+  stop: () => void;
 
-  textToSpeech: (text, code) => Promise<TextToSpeech>;
-  speechRecognition: (code) => Promise<SpeechRecognition>;
+  textToSpeech: (text: string, code: string) => Promise<TextToSpeech>;
+  speechRecognition: (code: string) => Promise<SpeechRecognition>;
 }
 applyMixins(PlayerRecorder, [Player, Recorder]);
 
