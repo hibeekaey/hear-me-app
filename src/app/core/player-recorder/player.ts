@@ -2,7 +2,7 @@ import { Media, MediaObject } from '@ionic-native/media/ngx';
 
 import { TextToSpeech, TextToSpeechService } from '../text-to-speech/text-to-speech.service';
 import { interval, throwError, Subject } from 'rxjs';
-import { retryWhen, delayWhen, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 export class Player {
   constructor(
@@ -10,7 +10,7 @@ export class Player {
     public _textToSpeechService: TextToSpeechService
   ) {}
 
-  play(data): Promise<number> {
+  play(data: string): Promise<number> {
     const audio: MediaObject = this.media.create(data);
     const duration = interval(700);
     const unsubscriber$: Subject<void> = new Subject<void>();
@@ -21,6 +21,7 @@ export class Player {
         val => {
           audio.getCurrentPosition().then(position => {
             if (previousPosition === position) {
+              audio.release();
               unsubscriber$.next();
               resolve(val);
             }
@@ -31,7 +32,7 @@ export class Player {
     });
   }
 
-  textToSpeech(text, code): Promise<object> {
+  textToSpeech(text: string, code: string): Promise<object> {
     const payload = { text: text, language: code };
     return new Promise((resolve, reject) => {
       this._textToSpeechService.process(payload).subscribe(

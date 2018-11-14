@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -18,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
   entryComponents: [],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CoreModule,
     IonicModule.forRoot(),
     AppRoutingModule

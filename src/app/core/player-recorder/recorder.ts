@@ -2,11 +2,11 @@ import { File } from '@ionic-native/file/ngx';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 
 import { SpeechRecognition, SpeechRecognitionService } from '../speech-recognition/speech-recognition.service';
-import { throwError, Subject } from 'rxjs';
-import { retryWhen, delayWhen, takeUntil } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 export class Recorder {
-  audioFile = 'audio.amr';
+  audio: MediaObject;
+  audioFile: string;
 
   constructor(
     public file: File,
@@ -14,15 +14,24 @@ export class Recorder {
     public _speechRecognitionService: SpeechRecognitionService
   ) {}
 
-  record(): void {
-    // create audio output file
-    this.file.createFile(this.file.externalCacheDirectory, this.audioFile, true).then(() => {
-      const audio: MediaObject = this.media.create(`${this.file.externalCacheDirectory.replace(/^file:\/\//, '')}${this.audioFile}`);
-      audio.startRecord();
+  record(): Promise<number> {
+    return new Promise(resolve => {
+      this.file.createFile(this.file.externalCacheDirectory, this.audioFile, true).then(() => {
+        this.audio = this.media.create(`${this.file.externalCacheDirectory.replace(/^file:\/\//, '')}${this.audioFile}`);
+        this.audio.startRecord();
+        resolve(1);
+      });
     });
   }
 
-  async speechRecognition(code): Promise<object> {
+  stop(): void {
+    if (this.audio) {
+      this.audio.stopRecord();
+      this.audio.release();
+    }
+  }
+
+  async speechRecognition(code: string): Promise<object> {
     const audioBytes = await this.file.readAsDataURL(this.file.externalCacheDirectory, this.audioFile);
     const payload = { voice: audioBytes.split(',')[1], language: code };
     return new Promise((resolve, reject) => {
